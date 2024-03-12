@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:lemon_guard/screens/register_screen.dart';
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+import 'package:lemon_guard/screens/home_screen.dart';
+import 'package:lemon_guard/screens/users/edit_screen.dart';
+
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     
@@ -24,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Center(
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.95,
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.7,
               child: Container(
                 padding: const EdgeInsets.only(top: 0),
                 decoration: BoxDecoration(
@@ -41,10 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const HomeScreen()));
+                            },
                             style: ElevatedButton.styleFrom(
                               textStyle: const TextStyle(fontSize: 20),
-                              backgroundColor: const Color.fromARGB(255, 53, 195, 18),
+                              backgroundColor: const Color.fromARGB(255, 124, 129, 122),
                               foregroundColor: Colors.white,
                               minimumSize: const Size(125, 50),
                             ),
@@ -52,14 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           const SizedBox(width: 15), 
                           ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const RegisterScreen()));
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               textStyle: const TextStyle(fontSize: 20),
-                              backgroundColor:  const Color.fromARGB(255, 124, 129, 122),
+                              backgroundColor:  const Color.fromARGB(255, 53, 195, 18),
                               foregroundColor: Colors.white,
                               minimumSize: const Size(125, 50),
                             ),
@@ -81,6 +83,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 20),
                       const TextField(
                         decoration: InputDecoration(
+                          hintText: 'Nombre',
+                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Apellido',
+                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const TextField(
+                        decoration: InputDecoration(
                           hintText: 'Email',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
                         ),
@@ -96,14 +112,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 10), 
                       Center(
                         child: ElevatedButton(
-                          onPressed: () {}, 
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const EditUserScreen()));
+                          }, 
                           style: ElevatedButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 20),
                             backgroundColor: const Color.fromARGB(255, 53, 195, 18),
                             foregroundColor: Colors.white,
                             minimumSize: const Size(200, 50),
                           ),
-                          child: const Text('Iniciar sesión'),
+                          child: const Text('Registrarse'),
                         ),
                       ),
                     ],

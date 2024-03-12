@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:lemon_guard/screens/register_screen.dart';
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+
+class EditUserScreen extends StatefulWidget {
+  const EditUserScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<EditUserScreen> createState() => _EditUserScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _EditUserScreenState extends State<EditUserScreen> {
   @override
   Widget build(BuildContext context) {
     
@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/fondo.png'),
+            image: AssetImage('assets/fondo1.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -36,43 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      // Botones dentro del contenedor blanco redondeado
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 20),
-                              backgroundColor: const Color.fromARGB(255, 53, 195, 18),
-                              foregroundColor: Colors.white,
-                              minimumSize: const Size(125, 50),
-                            ),
-                            child: const Text('Iniciar sesión'),
-                          ),
-                          const SizedBox(width: 15), 
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const RegisterScreen()));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 20),
-                              backgroundColor:  const Color.fromARGB(255, 124, 129, 122),
-                              foregroundColor: Colors.white,
-                              minimumSize: const Size(125, 50),
-                            ),
-                            child: const Text('Registrarse'),
-                          ),
-                        ],
-                      ),
                       const SizedBox(height: 20), 
                       RichText(
                         text: const TextSpan(
                           children: <TextSpan>[
                             TextSpan(
-                              text: "Bienvenido a LemonGuard ",
+                              text: "Juana Perez",
                               style: TextStyle(fontSize: 25, color: Colors.black),
                             ),
                           ],
@@ -81,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 20),
                       const TextField(
                         decoration: InputDecoration(
-                          hintText: 'Email',
+                          labelText: 'Nombre',
+                          hintText: 'Juana',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                       ),
@@ -89,7 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       const TextField(
                         obscureText: true,
                         decoration: InputDecoration(
-                          hintText: 'Contraseña',
+                          labelText: 'Apellidos',
+                          hintText: 'Pérez',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                       ),
