@@ -55,7 +55,10 @@ class _EditUserScreenState extends State<EditUserScreen> {
                           hintText: 'Juana',
                           border: const OutlineInputBorder(borderSide: BorderSide.none),
                           suffixIcon: IconButton(
-                            icon: const Icon(Icons.edit),
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Color.fromARGB(255, 53, 195, 18),
+                            ),
                             onPressed: () {
                               setState(() {
                                 isEnabled = true;
@@ -73,7 +76,10 @@ class _EditUserScreenState extends State<EditUserScreen> {
                           hintText: 'Pérez',
                           border: const OutlineInputBorder(borderSide: BorderSide.none),
                           suffixIcon: IconButton(
-                            icon: const Icon(Icons.edit),
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Color.fromARGB(255, 53, 195, 18),
+                            ),
                             onPressed: () {
                               setState(() {
                                 isEnabled = true;
@@ -90,7 +96,10 @@ class _EditUserScreenState extends State<EditUserScreen> {
                           hintText: 'Juanaperez@gmail.com',
                           border: const OutlineInputBorder(borderSide: BorderSide.none),
                           suffixIcon: IconButton(
-                            icon: const Icon(Icons.edit),
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Color.fromARGB(255, 53, 195, 18),
+                            ),
                             onPressed: () {
                               setState(() {
                                 isEnabled = true;
@@ -107,7 +116,10 @@ class _EditUserScreenState extends State<EditUserScreen> {
                           hintText: 'dvkdfm4894jfref3',
                           border: const OutlineInputBorder(borderSide: BorderSide.none),
                           suffixIcon: IconButton(
-                            icon: const Icon(Icons.edit),
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Color.fromARGB(255, 53, 195, 18),
+                            ),
                             onPressed: () {
                               setState(() {
                                 isEnabled = true;
