@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lemon_guard/screens/home_screen.dart';
+import 'package:lemon_guard/screens/register_screen.dart';
+import 'package:flutter/gestures.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +28,6 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 
@@ -66,16 +67,25 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 20),
               // Texto debajo del botón
               RichText(
-                text: const TextSpan(
+                text: TextSpan(
                   children: <TextSpan>[
-                    TextSpan(
+                    const TextSpan(
                       text: "¿No tienes una cuenta? ",
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     TextSpan(
                       text: "Regístrate",
-                      style: TextStyle(
-                          fontSize: 16, color: Color.fromARGB(255, 53, 195, 18)),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Color.fromARGB(255, 53, 195, 18),
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                          );
+                        },
                     ),
                   ],
                 ),
