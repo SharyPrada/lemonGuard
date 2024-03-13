@@ -10,12 +10,12 @@ class EditUserScreen extends StatefulWidget {
 class _EditUserScreenState extends State<EditUserScreen> {
   @override
   Widget build(BuildContext context) {
-    
+    bool isEnabled = false;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/fondo1.png'),
+            image: AssetImage('assets/fondo.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -24,7 +24,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
           child: Center(
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.95,
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.7,
               child: Container(
                 padding: const EdgeInsets.only(top: 0),
                 decoration: BoxDecoration(
@@ -47,24 +47,75 @@ class _EditUserScreenState extends State<EditUserScreen> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      const TextField(
+                      const SizedBox(height: 10),
+                      TextField(
                         decoration: InputDecoration(
+                          enabled: isEnabled,
                           labelText: 'Nombre',
                           hintText: 'Juana',
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                          border: const OutlineInputBorder(borderSide: BorderSide.none),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              setState(() {
+                                isEnabled = true;
+                              });
+                            },
+                          ),
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const TextField(
+                      TextField(
                         obscureText: true,
                         decoration: InputDecoration(
+                          enabled: isEnabled,
                           labelText: 'Apellidos',
                           hintText: 'Pérez',
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                          border: const OutlineInputBorder(borderSide: BorderSide.none),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              setState(() {
+                                isEnabled = true;
+                              });
+                            },
+                          ),
                         ),
                       ),
                       const SizedBox(height: 10), 
+                      TextField(
+                        decoration: InputDecoration(
+                          enabled: isEnabled,
+                          labelText: 'Email',
+                          hintText: 'Juanaperez@gmail.com',
+                          border: const OutlineInputBorder(borderSide: BorderSide.none),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              setState(() {
+                                isEnabled = true;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextField(
+                        decoration: InputDecoration(
+                          enabled:  isEnabled,
+                          labelText: 'Contraseña',
+                          hintText: 'dvkdfm4894jfref3',
+                          border: const OutlineInputBorder(borderSide: BorderSide.none),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              setState(() {
+                                isEnabled = true;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
                       Center(
                         child: ElevatedButton(
                           onPressed: () {}, 
@@ -74,7 +125,20 @@ class _EditUserScreenState extends State<EditUserScreen> {
                             foregroundColor: Colors.white,
                             minimumSize: const Size(200, 50),
                           ),
-                          child: const Text('Iniciar sesión'),
+                          child: const Text('Actualizar'),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {}, 
+                          style: ElevatedButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 20),
+                            backgroundColor: const Color.fromARGB(255, 188, 34, 34),
+                            foregroundColor: Colors.white,
+                            minimumSize: const Size(200, 50),
+                          ),
+                          child: const Text('Eliminar cuenta'),
                         ),
                       ),
                     ],
