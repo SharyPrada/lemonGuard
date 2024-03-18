@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lemon_guard/screens/home_screen.dart';
-import 'package:lemon_guard/screens/users/edit_screen.dart';
+
+final TextEditingController _nameController = TextEditingController();
+final TextEditingController _lastNameController = TextEditingController();
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -10,6 +14,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+
   @override
   Widget build(BuildContext context) {
     
@@ -81,30 +86,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        controller: _nameController,
+                        decoration: const InputDecoration(
                           hintText: 'Nombre',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        controller: _lastNameController,
+                        decoration: const InputDecoration(
                           hintText: 'Apellido',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
                           hintText: 'Email',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const TextField(
+                      TextField(
+                        controller: _passwordController,
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Contraseña',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
                         ),
@@ -112,10 +121,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 10), 
                       Center(
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: ()async{
+                            _registerUser(context);
+                            _nameController.clear();
+                            _lastNameController.clear();
+                            _emailController.clear();
+                            _passwordController.clear();
+                              if (_passwordController.text.isEmpty || _passwordController.text.length < 8) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'La contraseña debe tener al menos 8 caracteres.'
+                                      )
+                                ),
+                              );
+                              return;
+                              }
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const EditUserScreen()));
+                              MaterialPageRoute(builder: (context) => const HomeScreen()));
                           }, 
                           style: ElevatedButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 20),
@@ -136,4 +160,69 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  
 }
+
+void _registerUser(BuildContext context) async {
+  String name = _nameController.text;
+  String lastName = _lastNameController.text;
+  String email = _emailController.text;
+  String password = _passwordController.text;
+
+  print('Nombre: $name');
+  print('Apellidos: $lastName');
+  print('Email: $email');
+  print('Contraseña: $password');
+
+  try {
+    // Aquí deberías implementar la lógica para guardar los datos en una base de datos
+    await _saveUserData(name, lastName, email, password);
+    if (name.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty) {
+      throw Exception('Alguno de los campos está vacío');
+    }
+    // Muestra un mensaje de registro exitoso
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Registro Exitoso'),
+          content: const Text('¡Tu registro ha sido exitoso!'),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
+  } catch (error) {
+    // Maneja cualquier error que ocurra al guardar los datos
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: const Text('Hubo un error al registrar el usuario.'),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+Future<void> _saveUserData(String name, String lastName, String email, String password) async {
+  // Aquí deberías implementar la lógica para guardar los datos en una base de datos
+  // Por ejemplo, puedes llamar a una función que maneje esta lógica
+}
+
