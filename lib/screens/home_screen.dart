@@ -4,7 +4,7 @@ import 'package:lemon_guard/screens/users/edit_screen.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lemon_guard/routes.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

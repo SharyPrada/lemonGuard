@@ -5,6 +5,7 @@ final TextEditingController _nameController = TextEditingController();
 final TextEditingController _lastNameController = TextEditingController();
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
+final _formKey = GlobalKey<FormState>();
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,10 +15,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -36,10 +35,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: const EdgeInsets.only(top: 0),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(15), 
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(15), 
+                  padding: const EdgeInsets.all(15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -50,23 +49,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ElevatedButton(
                             onPressed: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const HomeScreen()));
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HomeScreen()));
                             },
                             style: ElevatedButton.styleFrom(
                               textStyle: const TextStyle(fontSize: 20),
-                              backgroundColor: const Color.fromARGB(255, 124, 129, 122),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 124, 129, 122),
                               foregroundColor: Colors.white,
                               minimumSize: const Size(125, 50),
                             ),
                             child: const Text('Iniciar sesión'),
                           ),
-                          const SizedBox(width: 15), 
+                          const SizedBox(width: 15),
                           ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               textStyle: const TextStyle(fontSize: 20),
-                              backgroundColor:  const Color.fromARGB(255, 53, 195, 18),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 53, 195, 18),
                               foregroundColor: Colors.white,
                               minimumSize: const Size(125, 50),
                             ),
@@ -74,76 +77,86 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20), 
+                      const SizedBox(height: 20),
                       RichText(
                         text: const TextSpan(
                           children: <TextSpan>[
                             TextSpan(
                               text: "Bienvenido a LemonGuard ",
-                              style: TextStyle(fontSize: 25, color: Colors.black),
+                              style:
+                                  TextStyle(fontSize: 25, color: Colors.black),
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 20),
-                      TextField(
+                      TextFormField(
                         controller: _nameController,
                         decoration: const InputDecoration(
                           hintText: 'Nombre',
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                       ),
                       const SizedBox(height: 20),
-                      TextField(
+                      TextFormField(
                         controller: _lastNameController,
                         decoration: const InputDecoration(
                           hintText: 'Apellido',
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                       ),
                       const SizedBox(height: 20),
-                      TextField(
+                      TextFormField(
                         controller: _emailController,
                         decoration: const InputDecoration(
                           hintText: 'Email',
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                       ),
                       const SizedBox(height: 10),
-                      TextField(
+                      TextFormField(
                         controller: _passwordController,
                         obscureText: true,
                         decoration: const InputDecoration(
                           hintText: 'Contraseña',
-                          border: OutlineInputBorder(borderSide: BorderSide.none),
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none),
                         ),
                       ),
-                      const SizedBox(height: 10), 
+                      const SizedBox(height: 10),
                       Center(
                         child: ElevatedButton(
-                          onPressed: ()async{
-                            _registerUser(context);
-                            _nameController.clear();
-                            _lastNameController.clear();
-                            _emailController.clear();
-                            _passwordController.clear();
-                              if (_passwordController.text.isEmpty || _passwordController.text.length < 8) {
+                          onPressed: () async {
+                            if (_nameController.text.isEmpty ||
+                                _lastNameController.text.isEmpty ||
+                                _emailController.text.isEmpty ||
+                                _passwordController.text.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text(
-                                      'La contraseña debe tener al menos 8 caracteres.'
-                                      )
+                                  content:
+                                      Text('Todos los campos son requeridos.'),
                                 ),
                               );
-                              return;
-                              }
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const HomeScreen()));
-                          }, 
+                            } else {
+                              _registerUser(context);
+                              _nameController.clear();
+                              _lastNameController.clear();
+                              _emailController.clear();
+                              _passwordController.clear();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HomeScreen()));
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 20),
-                            backgroundColor: const Color.fromARGB(255, 53, 195, 18),
+                            backgroundColor:
+                                const Color.fromARGB(255, 53, 195, 18),
                             foregroundColor: Colors.white,
                             minimumSize: const Size(200, 50),
                           ),
@@ -160,8 +173,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
-  
 }
 
 void _registerUser(BuildContext context) async {
@@ -178,9 +189,7 @@ void _registerUser(BuildContext context) async {
   try {
     // Aquí deberías implementar la lógica para guardar los datos en una base de datos
     await _saveUserData(name, lastName, email, password);
-    if (name.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty) {
-      throw Exception('Alguno de los campos está vacío');
-    }
+
     // Muestra un mensaje de registro exitoso
     showDialog(
       context: context,
@@ -221,8 +230,8 @@ void _registerUser(BuildContext context) async {
   }
 }
 
-Future<void> _saveUserData(String name, String lastName, String email, String password) async {
+Future<void> _saveUserData(
+    String name, String lastName, String email, String password) async {
   // Aquí deberías implementar la lógica para guardar los datos en una base de datos
   // Por ejemplo, puedes llamar a una función que maneje esta lógica
 }
-

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lemon_guard/screens/home_screen.dart';
 import 'package:lemon_guard/screens/register_screen.dart';
 import 'package:flutter/gestures.dart';
-import 'package:firebase_core/firebase_core.dart';
 void main() async {
   runApp(const MyApp());
 }
