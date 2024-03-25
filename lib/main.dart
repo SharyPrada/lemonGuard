@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lemon_guard/screens/home_screen.dart';
 import 'package:lemon_guard/screens/register_screen.dart';
 import 'package:flutter/gestures.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:lemon_guard/screens/base_style.dart';
 void main() async {
   runApp(const MyApp());
 }
@@ -35,13 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/fondo.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
+      backgroundColor: Colors.transparent,
+      body: BackgroundContainer(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -49,19 +44,18 @@ class _MyHomePageState extends State<MyHomePage> {
               // Botón de inicio de sesión
               Padding(
                 padding: const EdgeInsets.only(top: 500,),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()));
-                   },
-                  style: ElevatedButton.styleFrom(
-                    textStyle: const TextStyle(fontSize: 20,),
-                    backgroundColor: const Color.fromARGB(255, 53, 195, 18),
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(300, 50),
-                  ), 
-                  child: const Text('Iniciar sesión'),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    GreenRoundedButton( // Usa el nuevo widget GreenRoundedButton
+                      text: 'Iniciar sesión',
+                      onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomeScreen()));
+                      },
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),

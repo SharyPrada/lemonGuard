@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lemon_guard/screens/home_screen.dart';
-
-final TextEditingController _nameController = TextEditingController();
-final TextEditingController _lastNameController = TextEditingController();
-final TextEditingController _emailController = TextEditingController();
-final TextEditingController _passwordController = TextEditingController();
+import 'package:lemon_guard/screens/base_style.dart';
+import 'package:lemon_guard/utils/validations.dart';
+import 'package:lemon_guard/utils/api_user_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -15,17 +13,23 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
 
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void showWarning(String message) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+      ));
+    }
+
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/fondo.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
+      backgroundColor: Colors.transparent,
+      body: BackgroundContainer(
         child: Padding(
           padding: const EdgeInsets.only(top: 200),
           child: Center(
@@ -62,15 +66,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: const Text('Iniciar sesión'),
                           ),
                           const SizedBox(width: 15), 
-                          ElevatedButton(
+                          GreenRoundedButton( 
+                            text: 'Iniciar sesión',
                             onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 20),
-                              backgroundColor:  const Color.fromARGB(255, 53, 195, 18),
-                              foregroundColor: Colors.white,
-                              minimumSize: const Size(125, 50),
-                            ),
-                            child: const Text('Registrarse'),
                           ),
                         ],
                       ),
@@ -87,7 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: 20),
                       TextField(
-                        controller: _nameController,
+                        controller: nameController,
                         decoration: const InputDecoration(
                           hintText: 'Nombre',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
@@ -95,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: 20),
                       TextField(
-                        controller: _lastNameController,
+                        controller: lastNameController,
                         decoration: const InputDecoration(
                           hintText: 'Apellido',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
@@ -103,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: 20),
                       TextField(
-                        controller: _emailController,
+                        controller: emailController,
                         decoration: const InputDecoration(
                           hintText: 'Email',
                           border: OutlineInputBorder(borderSide: BorderSide.none),
@@ -111,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: 10),
                       TextField(
-                        controller: _passwordController,
+                        controller: passwordController,
                         obscureText: true,
                         decoration: const InputDecoration(
                           hintText: 'Contraseña',
@@ -120,34 +118,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: 10), 
                       Center(
-                        child: ElevatedButton(
-                          onPressed: ()async{
-                            _registerUser(context);
-                            _nameController.clear();
-                            _lastNameController.clear();
-                            _emailController.clear();
-                            _passwordController.clear();
-                              if (_passwordController.text.isEmpty || _passwordController.text.length < 8) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      'La contraseña debe tener al menos 8 caracteres.'
-                                      )
-                                ),
-                              );
+                        child: GreenRoundedButton( 
+                          text: 'Iniciar sesión',
+                          onPressed: () {
+                            // Obtiene el valores
+                            final name = nameController.text.trim();
+                            final lastname = lastNameController.text.trim();
+                            final email = emailController.text.trim();
+                            final password = passwordController.text.trim();
+
+                            // Validar datos
+                            if (name.isEmpty || !ValidationUtils.isStringMinLength(name, 3)) {showWarning('El nombre debe tener almenos 3 caracteres.');
                               return;
-                              }
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const HomeScreen()));
-                          }, 
-                          style: ElevatedButton.styleFrom(
-                            textStyle: const TextStyle(fontSize: 20),
-                            backgroundColor: const Color.fromARGB(255, 53, 195, 18),
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size(200, 50),
-                          ),
-                          child: const Text('Registrarse'),
+                            }
+                            if (lastname.isEmpty || !ValidationUtils.isStringMinLength(lastname, 3)) {showWarning('El apellido debe tener almenos 3 caracteres.');
+                              return;
+                            }
+                            if (email.isEmpty || !ValidationUtils.isValidEmail(email)) {showWarning('Por favor, introduce un correo electrónico válido.');
+                              return;
+                            }
+                            if (password.isEmpty || !ValidationUtils.isValidPassword(password)) {showWarning('La contraseña debe tener al menos 8 caracteres.');
+                              return;
+                            }
+                            Map<String, dynamic> data = {'name': name, 'lastname': lastname, 'email': email,'password': password,};
+                            Register.register(data);
+                          },
                         ),
                       ),
                     ],
@@ -160,69 +155,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
-  
 }
 
-void _registerUser(BuildContext context) async {
-  String name = _nameController.text;
-  String lastName = _lastNameController.text;
-  String email = _emailController.text;
-  String password = _passwordController.text;
-
-  print('Nombre: $name');
-  print('Apellidos: $lastName');
-  print('Email: $email');
-  print('Contraseña: $password');
-
-  try {
-    // Aquí deberías implementar la lógica para guardar los datos en una base de datos
-    await _saveUserData(name, lastName, email, password);
-    if (name.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty) {
-      throw Exception('Alguno de los campos está vacío');
-    }
-    // Muestra un mensaje de registro exitoso
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registro Exitoso'),
-          content: const Text('¡Tu registro ha sido exitoso!'),
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Aceptar'),
-            ),
-          ],
-        );
-      },
-    );
-  } catch (error) {
-    // Maneja cualquier error que ocurra al guardar los datos
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Error'),
-          content: const Text('Hubo un error al registrar el usuario.'),
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Aceptar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-Future<void> _saveUserData(String name, String lastName, String email, String password) async {
-  // Aquí deberías implementar la lógica para guardar los datos en una base de datos
-  // Por ejemplo, puedes llamar a una función que maneje esta lógica
-}
 
