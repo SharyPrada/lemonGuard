@@ -39,6 +39,8 @@ dependencies:
   firebase_auth: ^4.17.9
   http: ^1.2.1
   firebase_core: ^2.27.1
+  jwt_decode: ^0.3.0
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

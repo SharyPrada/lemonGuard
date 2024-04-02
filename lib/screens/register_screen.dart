@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lemon_guard/screens/home_screen.dart';
 import 'package:lemon_guard/screens/base_style.dart';
 import 'package:lemon_guard/utils/validations.dart';
-import 'package:lemon_guard/utils/api_user_service.dart';
+import 'package:lemon_guard/services/api_user_service.dart';
+import 'package:lemon_guard/utils/navegations.dart';
+import 'package:lemon_guard/utils/functions_global.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -17,12 +18,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-  void showWarning(String message) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(message),
-      ));
-    }
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const HomeScreen()));
-                            },
+                            onPressed: () {navigateToLoginScreen(context); },
                             style: ElevatedButton.styleFrom(
                               textStyle: const TextStyle(fontSize: 20),
                               backgroundColor: const Color.fromARGB(255, 124, 129, 122),
@@ -67,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           const SizedBox(width: 15), 
                           GreenRoundedButton( 
-                            text: 'Iniciar sesión',
+                            text: 'Registrarse',
                             onPressed: () {},
                           ),
                         ],
@@ -128,20 +119,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             final password = passwordController.text.trim();
 
                             // Validar datos
-                            if (name.isEmpty || !ValidationUtils.isStringMinLength(name, 3)) {showWarning('El nombre debe tener almenos 3 caracteres.');
+                            if (name.isEmpty || !ValidationUtils.isStringMinLength(name, 3)) {showWarning(context,'El nombre debe tener almenos 3 caracteres.');
                               return;
                             }
-                            if (lastname.isEmpty || !ValidationUtils.isStringMinLength(lastname, 3)) {showWarning('El apellido debe tener almenos 3 caracteres.');
+                            if (lastname.isEmpty || !ValidationUtils.isStringMinLength(lastname, 3)) {showWarning(context,'El apellido debe tener almenos 3 caracteres.');
                               return;
                             }
-                            if (email.isEmpty || !ValidationUtils.isValidEmail(email)) {showWarning('Por favor, introduce un correo electrónico válido.');
+                            if (email.isEmpty || !ValidationUtils.isValidEmail(email)) {showWarning(context,'Por favor, introduce un correo electrónico válido.');
                               return;
                             }
-                            if (password.isEmpty || !ValidationUtils.isValidPassword(password)) {showWarning('La contraseña debe tener al menos 8 caracteres.');
+                            if (password.isEmpty || !ValidationUtils.isValidPassword(password)) {showWarning(context,'La contraseña debe tener al menos 8 caracteres.');
                               return;
                             }
                             Map<String, dynamic> data = {'name': name, 'lastname': lastname, 'email': email,'password': password,};
-                            Register.register(data);
+                            Register.register(data, context);
                           },
                         ),
                       ),

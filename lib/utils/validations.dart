@@ -1,4 +1,5 @@
 class ValidationUtils {
+
   // Función para validar el formato del correo electrónico
   static bool isValidEmail(String value) {
     // Utiliza una expresión regular para validar el formato de correo electrónico
@@ -18,5 +19,4 @@ class ValidationUtils {
     // Verifica que la cadena tenga al menos la longitud mínima especificada
     return value.length >= minLength;
   }
-  
 }

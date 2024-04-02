@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lemon_guard/screens/register_screen.dart';
 import 'package:lemon_guard/screens/base_style.dart';
+import 'package:lemon_guard/screens/layouts/navbar.dart';
 import 'package:lemon_guard/utils/validations.dart';
-import 'package:lemon_guard/utils/api_user_service.dart';
+import 'package:lemon_guard/services/api_user_service.dart';
+import 'package:lemon_guard/utils/navegations.dart';
+import 'package:lemon_guard/utils/functions_global.dart';
+
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   @override
@@ -10,7 +14,17 @@ class HomeScreen extends StatelessWidget {
     return const Scaffold(
       backgroundColor: Colors.transparent,
       body: BackgroundContainer(
-        child: HomeBody(), // Envuelve el contenido con BackgroundContainer
+        child: Stack( // Usar Stack para superponer el NavBar
+          children: [
+            HomeBody(), 
+            Positioned( 
+              top : 0.0,
+              left: 0.0,
+              right: 0.0,
+              child: NavBar(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -24,13 +38,6 @@ class HomeBody extends StatefulWidget {
 class _HomeBodyState extends State<HomeBody> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
-  // Función para mostrar una advertencia
-  void showWarning(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-    ));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +68,8 @@ class _HomeBodyState extends State<HomeBody> {
                       const SizedBox(width: 15),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.push(context,
-                            MaterialPageRoute(
-                                builder: (context) =>const RegisterScreen()),
-                        ); },
+                          navigateToRegistreScreen(context);
+                        },
                         style: ElevatedButton.styleFrom(
                           textStyle: const TextStyle(fontSize: 20),
                           backgroundColor: const Color.fromARGB(255, 124, 129, 122),
@@ -112,14 +117,15 @@ class _HomeBodyState extends State<HomeBody> {
                         final email = emailController.text.trim();
                         final password = passwordController.text.trim();
 
-                        // Valida el correo electrónico y la contraseña
-                        if (email.isEmpty || !ValidationUtils.isValidEmail(email)) {showWarning('Por favor, introduce un correo electrónico válido.');
+                        if (!ValidationUtils.isValidEmail(email)) {
+                          showWarning(context, "El correo electrónico no es válido");
                           return;
                         }
-                        if (password.isEmpty || !ValidationUtils.isValidPassword(password)) {showWarning('La contraseña debe tener al menos 8 caracteres.');
+                        if (!ValidationUtils.isValidPassword(password)) {
+                          showWarning(context, "La contraseña debe tener al menos 8 caracteres.");
                           return;
                         }
-                        Login.login(email, password);
+                        Login.login(email, password, context);
                       },
                     ),
                   ),

@@ -10,6 +10,7 @@ class BackgroundContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
+        color: Colors.transparent,
         image: DecorationImage(
           image: AssetImage('assets/fondo.png'),
           fit: BoxFit.cover,

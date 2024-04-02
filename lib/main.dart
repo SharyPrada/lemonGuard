@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lemon_guard/screens/home_screen.dart';
-import 'package:lemon_guard/screens/register_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:lemon_guard/screens/base_style.dart';
+import 'package:lemon_guard/utils/navegations.dart';
 void main() async {
   runApp(const MyApp());
 }
@@ -49,11 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     GreenRoundedButton( // Usa el nuevo widget GreenRoundedButton
                       text: 'Iniciar sesión',
-                      onPressed: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const HomeScreen()));
-                      },
+                      onPressed: () {navigateToLoginScreen(context);},
                     ),
                   ],
                 ),
@@ -74,12 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Color.fromARGB(255, 53, 195, 18),
                       ),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const RegisterScreen()),
-                          );
-                        },
+                        ..onTap = () {navigateToRegistreScreen(context);},
                     ),
                   ],
                 ),
