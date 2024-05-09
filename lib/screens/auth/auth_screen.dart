@@ -84,6 +84,11 @@ class _AuthScreenState extends State<AuthScreen> {
           height: 20,
         ),
         InputTextFieldWidget(
+            registerationController.lastnameController, 'last name'),
+        SizedBox(
+          height: 20,
+        ),
+        InputTextFieldWidget(
             registerationController.emailController, 'email address'),
         SizedBox(
           height: 20,
