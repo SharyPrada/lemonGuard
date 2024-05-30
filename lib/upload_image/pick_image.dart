@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lemon_guard_frontend/components/navbar.dart';
 import 'package:lemon_guard_frontend/crops/home_crops.dart';
 import 'package:lemon_guard_frontend/crops/monitoring_screen.dart';
+import 'package:lemon_guard_frontend/routes/routes.dart';
 import 'package:lemon_guard_frontend/services/image_upload_service.dart';
 //import 'package:lemon_guard_frontend/provider/theme_privider.dart';
 import 'package:lemon_guard_frontend/utils/settings_screen.dart';
@@ -40,10 +41,7 @@ class _PickImageState extends State<PickImage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeCrops()),
-              );
+            Navigator.pushReplacementNamed(context, AppRoutes.home);
           },
         ),
         backgroundColor: Colors.green,
@@ -110,30 +108,18 @@ class _PickImageState extends State<PickImage> {
           setState(() {
             currentPage = page;
           });*/
-          switch (page) {
+          switch(page){
             case 0:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeCrops()),
-              );
+              Navigator.pushReplacementNamed(context, AppRoutes.home);
               break;
             case 1:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PickImage()),
-              );
+              Navigator.pushReplacementNamed(context, AppRoutes.detect);
               break;
             case 2:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MonitoringScreen()),
-              );
+              Navigator.pushReplacementNamed(context, AppRoutes.monitoring);
               break;
             case 3:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
+              Navigator.pushReplacementNamed(context, AppRoutes.settings);
               break;
           }
         },

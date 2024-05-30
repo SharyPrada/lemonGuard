@@ -245,7 +245,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             onTap: () {
                               Navigator.pushReplacementNamed(
                                 context,
-                                AppRoutes.signUp,
+                                AppRoutes.signup,
                               );
                             },
                             child: Text(

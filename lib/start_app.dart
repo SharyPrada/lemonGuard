@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lemon_guard_frontend/constants/images_path.dart';
 import 'package:lemon_guard_frontend/crops/home_crops.dart';
 import 'package:lemon_guard_frontend/crops/monitoring_screen.dart';
+import 'package:lemon_guard_frontend/routes/routes.dart';
 import 'package:lemon_guard_frontend/upload_image/pick_image.dart';
 import 'package:lemon_guard_frontend/users/signin_screen.dart';
 import 'package:lemon_guard_frontend/users/signup_screen.dart';
@@ -85,10 +86,7 @@ class StartApp extends StatelessWidget {
                                   width: w * .55,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => const SignInScreen()),
-                                      );
+                                      Navigator.pushReplacementNamed(context, AppRoutes.login);
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.green, // 
@@ -119,10 +117,7 @@ class StartApp extends StatelessWidget {
                                   width: w * .55,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => const SignUpScreen()),
-                                      );
+                                      Navigator.pushReplacementNamed(context, AppRoutes.signup);
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.green, // 
@@ -146,14 +141,13 @@ class StartApp extends StatelessWidget {
                                     ),
                                   ),
                                 ), // temporal
+                                /*
                                 SizedBox(
                                   width: w * .55,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => const HomeCrops()),
-                                      );
+                                      
+                                      Navigator.pushReplacementNamed(context, AppRoutes.home);
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.green, // 
@@ -176,11 +170,12 @@ class StartApp extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                )
+                                )*/
                               ]),
                         )),
                   ),
-                ))
+                ),
+              )
           ],
         ),
       ),

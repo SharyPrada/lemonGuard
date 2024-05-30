@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lemon_guard_frontend/provider/theme_privider.dart';
+import 'package:lemon_guard_frontend/routes/routes.dart';
 //import 'package:lemon_guard_frontend/crops/home_crops.dart';
 import 'package:lemon_guard_frontend/start_app.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       darkTheme: ThemeData.dark(),
-      home: const StartApp(),
+      initialRoute: AppRoutes.start,  // Define la ruta inicial
+      routes: AppRoutes.routes,
     );
   }
 }

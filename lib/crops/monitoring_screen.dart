@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:lemon_guard_frontend/components/navbar.dart';
 import 'package:lemon_guard_frontend/crops/home_crops.dart';
 import 'package:lemon_guard_frontend/models/monitoring.dart';
+import 'package:lemon_guard_frontend/routes/routes.dart';
 import 'package:lemon_guard_frontend/upload_image/pick_image.dart';
 import 'package:lemon_guard_frontend/utils/settings_screen.dart';
 //import 'package:lemon_guard_frontend/services/monitoring_services.dart';
@@ -40,10 +41,7 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeCrops()),
-              );
+            Navigator.pushReplacementNamed(context, AppRoutes.home);
           },
         ),
         backgroundColor: Colors.green,
@@ -115,32 +113,20 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
           setState(() {
             currentPage = page;
           });*/
-          switch (page) {
-            case 0:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeCrops()),
-              );
-              break;
-            case 1:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PickImage()),
-              );
-              break;
-            case 2:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MonitoringScreen()),
-              );
-              break;
-            case 3:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
-              break;
-          }
+          switch(page){
+                  case 0:
+                    Navigator.pushReplacementNamed(context, AppRoutes.home);
+                    break;
+                  case 1:
+                    Navigator.pushReplacementNamed(context, AppRoutes.detect);
+                    break;
+                  case 2:
+                    Navigator.pushReplacementNamed(context, AppRoutes.monitoring);
+                    break;
+                  case 3:
+                    Navigator.pushReplacementNamed(context, AppRoutes.settings);
+                    break;
+                }
         },
         selectedItem: 2,
       ),

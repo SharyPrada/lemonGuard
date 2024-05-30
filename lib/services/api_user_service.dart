@@ -5,9 +5,9 @@ import 'package:lemon_guard_frontend/services/token_storage.dart';
 import 'package:logger/logger.dart';
 
 class ApiUserService {
-  static const String apiBaseUrl = 'lemonguard.online/api/';
-  static const String apiLoginUrl = '${apiBaseUrl}users/login/';
-  static const String apiRegisterUrl = '${apiBaseUrl}users/signup/';
+  static const String apiBaseUrl = 'http://lemonguard.online/api/';
+  static const String apiLoginUrl = '${apiBaseUrl}user/users/login/';
+  static const String apiRegisterUrl = '${apiBaseUrl}user/users/signup/';
   static final logger = Logger();
 
   static Future<void> login(String email, String password, BuildContext context) async {
@@ -32,7 +32,7 @@ class ApiUserService {
         await TokenStorage.saveToken('accessToken', accessToken);
         await TokenStorage.saveToken('refreshToken', refreshToken);
 
-        Navigator.of(context).pushReplacementNamed('/main');
+        Navigator.of(context).pushReplacementNamed('/home');
       } else {
         final errorMessage = json.decode(response.body)['error'] ?? 'Unknown error';
         ScaffoldMessenger.of(context).showSnackBar(

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:lemon_guard_frontend/crops/home_crops.dart';
 import 'package:lemon_guard_frontend/crops/monitoring_screen.dart';
 import 'package:lemon_guard_frontend/provider/theme_privider.dart';
+import 'package:lemon_guard_frontend/routes/routes.dart';
 import 'package:lemon_guard_frontend/upload_image/pick_image.dart';
 import 'package:lemon_guard_frontend/utils/settings_screen.dart';
 import 'package:provider/provider.dart';
@@ -52,28 +53,16 @@ class _BottomNavBarState extends State<NavBar> {
               onTabChange: (index){
                 switch(index){
                   case 0:
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeCrops()),
-                    );
+                    Navigator.pushReplacementNamed(context, AppRoutes.home);
                     break;
                   case 1:
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const PickImage()),
-                    );
+                    Navigator.pushReplacementNamed(context, AppRoutes.detect);
                     break;
                   case 2:
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MonitoringScreen()),
-                    );
+                    Navigator.pushReplacementNamed(context, AppRoutes.monitoring);
                     break;
                   case 3:
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SettingsScreen()),
-                    );
+                    Navigator.pushReplacementNamed(context, AppRoutes.settings);
                     break;
                 }
                 widget.onTap(index);
