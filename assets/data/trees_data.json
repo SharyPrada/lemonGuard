@@ -1,0 +1,19 @@
+[
+    {
+      "fecha": "2024-05-30",
+      "identificador": "T1",
+      "estado": "Sano",
+      "prediccion": "HLB",
+      "precision": 85,
+      "tratamiento": "N/A"
+    },
+    {
+      "fecha": "2024-05-29",
+      "identificador": "T2",
+      "estado": "Enfermo Leve",
+      "prediccion": "Cancrosis",
+      "precision": 90,
+      "tratamiento": "Insecticida"
+    }
+  ]
+  
