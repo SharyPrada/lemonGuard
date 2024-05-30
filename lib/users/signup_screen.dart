@@ -193,17 +193,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             },
                             activeColor: lightColorScheme.primary,
                           ),
-                          const Text(
-                            'I agree to the processing of ',
-                            style: TextStyle(
-                              color: Colors.black45,
-                            ),
-                          ),
-                          Text(
-                            'Personal data',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: lightColorScheme.primary,
+                          Flexible(
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'I agree to the processing of ',
+                                style: const TextStyle(
+                                  color: Colors.black45,
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'Personal data',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: lightColorScheme.primary,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
